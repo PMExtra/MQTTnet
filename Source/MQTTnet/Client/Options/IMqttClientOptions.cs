@@ -28,5 +28,7 @@ namespace MQTTnet.Client.Options
         bool? RequestResponseInformation { get; }
         uint? SessionExpiryInterval { get; }
         ushort? TopicAliasMaximum { get; }
+
+        int ParallelReceiving { get; }
     }
 }

@@ -29,5 +29,7 @@ namespace MQTTnet.Client.Options
         public bool? RequestResponseInformation { get; set; }
         public uint? SessionExpiryInterval { get; set; }
         public ushort? TopicAliasMaximum { get; set; }
+
+        public int ParallelReceiving { get; set; } = 1;
     }
 }

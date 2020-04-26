@@ -15,6 +15,7 @@ using MQTTnet.Packets;
 using MQTTnet.Protocol;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -99,7 +100,7 @@ namespace MQTTnet.Client
                     _logger.Verbose("Connection with server established.");
 
                     _publishPacketReceiverQueue = new AsyncQueue<MqttPublishPacket>();
-                    _publishPacketReceiverTask = Task.Run(() => ProcessReceivedPublishPackets(backgroundCancellationToken), backgroundCancellationToken);
+                    _publishPacketReceiverTask = Task.WhenAll(Enumerable.Repeat<Task>(Task.Run(() => ProcessReceivedPublishPackets(backgroundCancellationToken), backgroundCancellationToken), options.ParallelReceiving));
 
                     _packetReceiverTask = Task.Run(() => TryReceivePacketsAsync(backgroundCancellationToken), backgroundCancellationToken);
 

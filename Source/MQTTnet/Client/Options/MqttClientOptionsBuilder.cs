@@ -240,6 +240,13 @@ namespace MQTTnet.Client.Options
             return this;
         }
 
+        public MqttClientOptionsBuilder WithParallelReceiving(int parallels)
+        {
+            if (parallels < 1) throw new ArgumentOutOfRangeException(nameof(parallels));
+            _options.ParallelReceiving = parallels;
+            return this;
+        }
+
         public IMqttClientOptions Build()
         {
             if (_tcpOptions == null && _webSocketOptions == null)
